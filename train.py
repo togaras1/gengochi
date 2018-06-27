@@ -15,7 +15,7 @@ from visualize import out_generated_image
 
 def main():
     parser = argparse.ArgumentParser(description='Chainer example: DCGAN')
-    parser.add_argument('--batchsize', '-b', type=int, default=50,
+    parser.add_argument('--batchsize', '-b', type=int, default=1,
                         help='Number of images in each mini-batch')
     parser.add_argument('--epoch', '-e', type=int, default=1000,
                         help='Number of sweeps over the dataset to train')
@@ -35,7 +35,8 @@ def main():
                         help='Interval of snapshot')
     parser.add_argument('--display_interval', type=int, default=100,
                         help='Interval of displaying log to console')
-    parser.add_argument('--load_dataset', default='gengochi_train')
+    parser.add_argument('--load_dataset', default='gengochi_train',
+                        help='Load Datasets')
     args = parser.parse_args()
 
     print('GPU: {}'.format(args.gpu))
@@ -82,7 +83,11 @@ def main():
         iterator=train_iter,
         optimizer={
             'gen': opt_gen, 'dis': opt_dis},
-        device=args.gpu)
+        device=args.gpu,
+        params={
+            'dataset': train
+        })
+
     trainer = training.Trainer(updater, (args.epoch, 'epoch'), out=args.out)
 
     snapshot_interval = (args.snapshot_interval, 'iteration')
