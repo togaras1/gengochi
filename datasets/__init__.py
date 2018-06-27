@@ -1,1 +1,1 @@
-from .datasets import kin2gochi_train
+from .datasets import gengochi_train
