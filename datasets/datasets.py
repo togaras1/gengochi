@@ -12,10 +12,10 @@ from .datasets_base import datasets_base
 class gengochi_train(datasets_base):
     def __init__(self, flip=1, resize_to=280, crop_to=256):
         super(gengochi_train, self).__init__(flip=flip, resize_to=resize_to, crop_to=crop_to)
-        self.trainBkey = glob.glob("image/goc/*.jpg")
+        self.traingochi = glob.glob("image/goc/*.jpg")
 
     def __len__(self):
-        return len(self.trainAkey)
+        return len(self.traingochi)
 
     def do_resize(self, img):
         #print(img.shape)
@@ -45,18 +45,14 @@ class gengochi_train(datasets_base):
 
     def get_example(self, i):
         np.random.seed(None)
-        idA = self.trainAkey[np.random.randint(0,len(self.trainAkey))]
-        idB = self.trainBkey[np.random.randint(0,len(self.trainBkey))]
+        idg = self.traingochi[np.random.randint(0,len(self.traingochi))]
         #print(idA)
 
-        imgA = cv2.imread(idA, cv2.IMREAD_COLOR)
-        imgB = cv2.imread(idB, cv2.IMREAD_COLOR)
+        imgg = cv2.imread(idg, cv2.IMREAD_COLOR)
 
-        imgA = self.do_augmentation(imgA)
-        imgB = self.do_augmentation(imgB)
+        imgg = self.do_augmentation(imgg)
 
-        imgA = self.preprocess_image(imgA)
-        imgB = self.preprocess_image(imgB)
+        imgg = self.preprocess_image(imgg)
 
-        return imgA, imgB
+        return imgg
 
