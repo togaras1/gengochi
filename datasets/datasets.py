@@ -9,10 +9,9 @@ from io import BytesIO
 import numpy as np
 from .datasets_base import datasets_base
 
-class kin2gochi_train(datasets_base):
+class gengochi_train(datasets_base):
     def __init__(self, flip=1, resize_to=280, crop_to=256):
-        super(kin2gochi_train, self).__init__(flip=flip, resize_to=resize_to, crop_to=crop_to)
-        self.trainAkey = glob.glob("image/kin/*.jpg")
+        super(gengochi_train, self).__init__(flip=flip, resize_to=resize_to, crop_to=crop_to)
         self.trainBkey = glob.glob("image/goc/*.jpg")
 
     def __len__(self):
