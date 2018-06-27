@@ -12,14 +12,14 @@ from .datasets_base import datasets_base
 class gengochi_train(datasets_base):
     def __init__(self, flip=1, resize_to=280, crop_to=256):
         super(gengochi_train, self).__init__(flip=flip, resize_to=resize_to, crop_to=crop_to)
-        self.traingochi = glob.glob("image/goc/*.jpg")
+        self.traingochi = glob.glob("image/gochi/*.jpg")
 
     def __len__(self):
         return len(self.traingochi)
 
     def do_resize(self, img):
         #print(img.shape)
-        img = cv2.resize(img, (360, 202), interpolation=cv2.INTER_AREA)
+        img = cv2.resize(img, (480, 270), interpolation=cv2.INTER_AREA)
         #print(img.shape)
         return img
 
@@ -55,4 +55,3 @@ class gengochi_train(datasets_base):
         imgg = self.preprocess_image(imgg)
 
         return imgg
-

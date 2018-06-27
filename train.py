@@ -11,6 +11,7 @@ from net import Discriminator
 from net import Generator
 from updater import *
 from evaluation import *
+from visualize import out_generated_image
 
 def main():
     parser = argparse.ArgumentParser(description='Chainer example: DCGAN')
