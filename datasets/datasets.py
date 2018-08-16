@@ -10,20 +10,20 @@ import numpy as np
 from .datasets_base import datasets_base
 
 class gengochi_train(datasets_base):
-    def __init__(self, flip=1, resize_to=280, crop_to=256):
+    def __init__(self, flip=1, resize_to=128, crop_to=128):
         super(gengochi_train, self).__init__(flip=flip, resize_to=resize_to, crop_to=crop_to)
-        self.traingochi = glob.glob("image/gochi/*.jpg")
+        self.traingochi = glob.glob("image/gochi/*.png")
 
     def __len__(self):
         return len(self.traingochi)
 
     def do_resize(self, img):
         #print(img.shape)
-        img = cv2.resize(img, (480, 270), interpolation=cv2.INTER_AREA)
+        img = cv2.resize(img, (128, 128), interpolation=cv2.INTER_AREA)
         #print(img.shape)
         return img
 
-    def do_random_crop(self, img, crop_to=256):
+    def do_random_crop(self, img, crop_to=128):
         w, h, ch = img.shape
         limx = w - crop_to
         limy = h - crop_to

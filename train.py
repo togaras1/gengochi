@@ -66,7 +66,7 @@ def main():
     opt_dis = make_optimizer(dis)
 
     if args.dataset == '':
-        train = getattr(datasets, args.load_dataset)(flip=1, resize_to=256, crop_to=256)
+        train = getattr(datasets, args.load_dataset)(flip=1, resize_to=128, crop_to=128)
     else:
         all_files = os.listdir(args.dataset)
         image_files = [f for f in all_files if ('png' in f or 'jpg' in f)]
