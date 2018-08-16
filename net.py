@@ -13,7 +13,6 @@ def add_noise(h, sigma=0.2):
     else:
         return h
 
-
 class Generator(chainer.Chain):
 
     def __init__(self, n_hidden, bottom_width=32, ch=32, wscale=0.02):

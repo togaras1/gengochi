@@ -10,7 +10,7 @@ import numpy as np
 from .datasets_base import datasets_base
 
 class gengochi_train(datasets_base):
-    def __init__(self, flip=1, resize_to=128, crop_to=128):
+    def __init__(self, flip=1, resize_to=128, crop_to=64):
         super(gengochi_train, self).__init__(flip=flip, resize_to=resize_to, crop_to=crop_to)
         self.traingochi = glob.glob("image/gochi/*.png")
 
@@ -23,7 +23,7 @@ class gengochi_train(datasets_base):
         #print(img.shape)
         return img
 
-    def do_random_crop(self, img, crop_to=128):
+    def do_random_crop(self, img, crop_to=64):
         w, h, ch = img.shape
         limx = w - crop_to
         limy = h - crop_to

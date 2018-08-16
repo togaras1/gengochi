@@ -39,6 +39,7 @@ class DCGANUpdater(chainer.training.updaters.StandardUpdater):
         gen, dis = self.gen, self.dis
         batchsize = len(batch)
 
+        # 入力数と出力数があってない
         y_real = dis(x_real)
 
         z = Variable(xp.asarray(gen.make_hidden(batchsize)))
