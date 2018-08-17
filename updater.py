@@ -52,5 +52,5 @@ class DCGANUpdater(chainer.training.updaters.StandardUpdater):
         if(self._iter % 200 == 0):
             img = x_fake.data
             img = cuda.to_cpu(img)
-            img = self._dataset.batch_postprocess_images(img, 1, 1)
+            img = self._dataset.batch_postprocess_images(img, 7, 5) # 35枚の画像を並べる必要があるので
             Image.fromarray(img).save("result/iter_"+str(self._iter)+".jpg")
