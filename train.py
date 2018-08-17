@@ -13,9 +13,12 @@ from updater import *
 from evaluation import *
 from visualize import out_generated_image
 
+## 参考？？？
+## https://github.com/rystylee/chainer-dcgan-mnist
+
 def main():
     parser = argparse.ArgumentParser(description='Chainer example: DCGAN')
-    parser.add_argument('--batchsize', '-b', type=int, default=1,
+    parser.add_argument('--batchsize', '-b', type=int, default=50,
                         help='Number of images in each mini-batch')
     parser.add_argument('--epoch', '-e', type=int, default=1000,
                         help='Number of sweeps over the dataset to train')
