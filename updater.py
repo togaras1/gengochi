@@ -49,6 +49,8 @@ class DCGANUpdater(chainer.training.updaters.StandardUpdater):
         gen_optimizer.update(self.loss_gen, gen, y_fake)
 
         #if(self._iter % 200 == 0):
+        #    img = self._dataset.get_example(self._iter % 35)
+        #    img = self._dataset.postprocess_image(img)
         #    img = x_fake.data
         #    img = cuda.to_cpu(img)
         #    img = self._dataset.batch_postprocess_images(img, 5, 7)
