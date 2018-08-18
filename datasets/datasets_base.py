@@ -16,12 +16,14 @@ class datasets_base(dataset_mixin.DatasetMixin):
 
     def preprocess_image(self, img):
         img = img.astype("f")
-        img = img / 127.5 - 1
+        #img = img / 127.5 - 1
+        img = img / 255.0
         img = img.transpose((2, 0, 1))
         return img
 
     def postprocess_image(self, img):
-        img = (img + 1) *127.5
+        #img = (img + 1) *127.5
+        img = img * 255.0
         img = np.clip(img, 0, 255)
         img = img.astype(np.uint8)
         img.transpose((1, 2, 0))
@@ -31,13 +33,12 @@ class datasets_base(dataset_mixin.DatasetMixin):
         b, ch, w, h = img.shape
         img = img.reshape((batch_w, batch_h, ch, w, h))
         img = img.transpose(0,1,3,4,2)
-        img = (img + 1) *127.5
+        #img = (img + 1) *127.5
+        img = img * 255.0
         img = np.clip(img, 0, 255)
         img = img.astype(np.uint8)
         img = img.reshape((batch_w, batch_h, w, h, ch)).transpose(0,2,1,3,4).reshape((w*batch_w, h*batch_h, ch))[:,:,::-1]
         return img
-
-
 
     def read_image_key_file_plaintext(self, file):
         with open(file,'r') as f:
@@ -77,4 +78,3 @@ class datasets_base(dataset_mixin.DatasetMixin):
             img = self.do_random_crop(img, self.crop_to)
 
         return img
-
