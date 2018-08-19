@@ -7,6 +7,7 @@ from chainer.training import extensions
 
 import datasets
 
+from datasets import gengochi_train
 from net import Discriminator
 from net import Generator
 from updater import *
@@ -69,7 +70,9 @@ def main():
     opt_dis = make_optimizer(dis)
 
     if args.dataset == '':
-        train = getattr(datasets, args.load_dataset)(flip=1, resize_to=128, crop_to=0)
+        #train, _ = chainer.datasets.get_cifar10(withlabel=False, scale=255.)
+        dts = gengochi_train()
+        train = dts._get_gochiusa(withlabel=False, scale=255.)
     else:
         all_files = os.listdir(args.dataset)
         image_files = [f for f in all_files if ('png' in f or 'jpg' in f)]
