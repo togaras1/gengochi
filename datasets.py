@@ -10,13 +10,14 @@ import chainer
 from chainer import datasets
 
 class gengochi_train(object):
-    def __init__(self):
+    def __init__(self, size_to=128):
         # testdata / traindataを作るとしたらディレクトリを分ける。
         # ラベルはtsvかcsvを作り関連付けするかファイル名。
         imgs = glob.glob("image/gochi/*.png")
         self.rawdata = []
-        for i in imgs:
-            self.rawdata.append(np.asarray(Image.open(i)))
+        for j in range(100): # 100 * 105 で10500個のデータにする
+            for i in imgs:
+                self.rawdata.append(np.asarray(Image.open(i).resize((size_to,size_to))))
 
     # refar to... chainer/datasets/cifar.py
     # cifarライクなデータセットなので参考にした

@@ -71,7 +71,7 @@ def main():
 
     if args.dataset == '':
         #train, _ = chainer.datasets.get_cifar10(withlabel=False, scale=255.)
-        dts = gengochi_train()
+        dts = gengochi_train(size_to=32)
         train = dts._get_gochiusa(withlabel=False, scale=255.)
     else:
         all_files = os.listdir(args.dataset)
