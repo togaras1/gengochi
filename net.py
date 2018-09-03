@@ -15,7 +15,7 @@ def add_noise(h, sigma=0.2):
 
 class Generator(chainer.Chain):
 
-    def __init__(self, n_hidden, bottom_width=4, ch=512, wscale=0.02):
+    def __init__(self, n_hidden, bottom_width=8, ch=512, wscale=0.02):
         super(Generator, self).__init__()
         self.n_hidden = n_hidden
         self.ch = ch
@@ -51,7 +51,7 @@ class Generator(chainer.Chain):
 
 class Discriminator(chainer.Chain):
 
-    def __init__(self, bottom_width=4, ch=512, wscale=0.02):
+    def __init__(self, bottom_width=8, ch=512, wscale=0.02):
         w = chainer.initializers.Normal(wscale)
         super(Discriminator, self).__init__()
         with self.init_scope():

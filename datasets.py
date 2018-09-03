@@ -13,20 +13,23 @@ class gengochi_train(object):
     def __init__(self, size_to=128):
         # testdata / traindataを作るとしたらディレクトリを分ける。
         # ラベルはtsvかcsvを作り関連付けするかファイル名。
-        imgs = glob.glob("image/gochi/*.png")
+        self.size = size_to
+        path = "image/thumb/**/*.png" #"image/gochi/*.png"
+        imgs = glob.glob(path)
         self.rawdata = []
-        for j in range(100): # 100 * 105 で10500個のデータにする
+        for j in range(1): # generate anime image
             for i in imgs:
-                self.rawdata.append(np.asarray(Image.open(i).resize((size_to,size_to))))
+                # alphaチャンネルつきPNGだったときのために一応3チャンネルに変換
+                self.rawdata.append(np.asarray(Image.open(i).convert("RGB").resize((size_to,size_to))))
 
     # refar to... chainer/datasets/cifar.py
     # cifarライクなデータセットなので参考にした
     def _get_gochiusa(self, withlabel=True, ndim=3, scale=1, dtype=None):
         images = np.asarray(self.rawdata)
-        if ndim == 1:
-            images = images.reshape(-1, 3*128*128)
+        if ndim == 1: # i,x,y,rgb to i,r,g,b
+            images = images.transpose(0,3,1,2).reshape(-1,3*self.size*self.size)
         elif ndim == 3:
-            images = images.reshape(-1, 3, 128, 128)
+            images = images.transpose(0,3,1,2)
         images = images.astype("f")
         images *= scale / 255.
 
@@ -34,4 +37,5 @@ class gengochi_train(object):
         #    labels = labels.astype(numpy.int32)
         #    return tuple_dataset.TupleDataset(images, labels)
         #else:
+        print('{} images are loaded'.format(images.shape))
         return images

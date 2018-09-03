@@ -35,9 +35,9 @@ def main():
                         help='Number of hidden units (z)')
     parser.add_argument('--seed', type=int, default=0,
                         help='Random seed of z at visualization stage')
-    parser.add_argument('--snapshot_interval', type=int, default=500,
+    parser.add_argument('--snapshot_interval', type=int, default=1000,
                         help='Interval of snapshot')
-    parser.add_argument('--display_interval', type=int, default=100,
+    parser.add_argument('--display_interval', type=int, default=1000,
                         help='Interval of displaying log to console')
     parser.add_argument('--load_dataset', default='gengochi_train',
                         help='Load Datasets')
@@ -71,7 +71,7 @@ def main():
 
     if args.dataset == '':
         #train, _ = chainer.datasets.get_cifar10(withlabel=False, scale=255.)
-        dts = gengochi_train(size_to=32)
+        dts = gengochi_train(size_to=64)
         train = dts._get_gochiusa(withlabel=False, scale=255.)
     else:
         all_files = os.listdir(args.dataset)
@@ -99,12 +99,15 @@ def main():
     snapshot_interval = (args.snapshot_interval, 'iteration')
     display_interval = (args.display_interval, 'iteration')
     trainer.extend(
-        extensions.snapshot(filename='snapshot_iter_{.updater.iteration}.npz'),
+        extensions.snapshot(filename='snapshot_iter_current.npz'),
+        #extensions.snapshot(filename='snapshot_iter_{.updater.iteration}.npz'),
         trigger=snapshot_interval)
     trainer.extend(extensions.snapshot_object(
-        gen, 'gen_iter_{.updater.iteration}.npz'), trigger=snapshot_interval)
+        gen, 'gen_iter_current.npz'), trigger=snapshot_interval)
+        #gen, 'gen_iter_{.updater.iteration}.npz'), trigger=snapshot_interval)
     trainer.extend(extensions.snapshot_object(
-        dis, 'dis_iter_{.updater.iteration}.npz'), trigger=snapshot_interval)
+        dis, 'dis_iter_current.npz'), trigger=snapshot_interval)
+        #dis, 'dis_iter_{.updater.iteration}.npz'), trigger=snapshot_interval)
     trainer.extend(extensions.LogReport(trigger=display_interval))
     trainer.extend(extensions.PrintReport([
         'epoch', 'iteration', 'gen/loss', 'dis/loss',
