@@ -14,10 +14,10 @@ class gengochi_train(object):
         # testdata / traindataを作るとしたらディレクトリを分ける。
         # ラベルはtsvかcsvを作り関連付けするかファイル名。
         self.size = size_to
-        path = "image/thumb/**/*.png" #"image/gochi/*.png"
+        path = "image/gochi/*.png" #"image/gochi/*.png"
         imgs = glob.glob(path)
         self.rawdata = []
-        for j in range(1): # generate anime image
+        for j in range(100): # generate anime image
             for i in imgs:
                 # alphaチャンネルつきPNGだったときのために一応3チャンネルに変換
                 self.rawdata.append(np.asarray(Image.open(i).convert("RGB").resize((size_to,size_to))))

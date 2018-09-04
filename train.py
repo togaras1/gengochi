@@ -37,7 +37,7 @@ def main():
                         help='Random seed of z at visualization stage')
     parser.add_argument('--snapshot_interval', type=int, default=1000,
                         help='Interval of snapshot')
-    parser.add_argument('--display_interval', type=int, default=1000,
+    parser.add_argument('--display_interval', type=int, default=100,
                         help='Interval of displaying log to console')
     parser.add_argument('--load_dataset', default='gengochi_train',
                         help='Load Datasets')
